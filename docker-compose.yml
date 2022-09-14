@@ -14,6 +14,16 @@ services:
       - 'POSTGRESQL_DATABASE=${POSTGRES_DB}'
       - 'ALLOW_EMPTY_PASSWORD=${HIDE_EMPTY_PASSWORD}'
       - 'POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}'
+  redis:
+    container_name: cache1
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+  
+  
 volumes:
   postgresql_data:
     driver: local
