@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+message Search{
+    string ack = 1;
+}
+
+message lanResponse{
+    string ack = 1;
+}
+
+service lan{
+    rpc getSearch(Search) returns(lanResponse); 
+
+
+}
