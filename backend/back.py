@@ -45,9 +45,7 @@ def serv():
 
 if __name__== "__main__":
     t.sleep(10)
-    try:
-        con = connect.conexion()
-        print("conectado")
-    except:
-        print("error")
+    con = connect.conexion()
+    print("conectado")
+    cur = con.cursor()
     serv()
