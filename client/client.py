@@ -32,3 +32,4 @@ def busqueda(self):
     elif r_main.get(search):
         print(r_main.get(search))
         
+
