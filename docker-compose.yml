@@ -32,7 +32,10 @@ services:
     command:
       [
         "redis-server",
-        "--protected-mode no"
+        "--protected-mode no",
+        "--maxmemory 1mb",
+        "--maxmemory-policy",
+        "allkeys-lru"
       ]
   redis-replica:
     container_name: cachereplica
@@ -49,6 +52,14 @@ services:
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
       - ALLOW_EMPTY_PASSWORD=yes
+    command:
+      [
+        "redis-server",
+        "--protected-mode no",
+        "--maxmemory 1mb",
+        "--maxmemory-policy",
+        "allkeys-lfu"
+      ]
   redis-replica2:
     container_name: cachereplica2
     image: 'bitnami/redis:latest'
@@ -64,6 +75,14 @@ services:
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
       - ALLOW_EMPTY_PASSWORD=yes
+    command:
+      [
+        "redis-server",
+        "--protected-mode no",
+        "--maxmemory 1mb",
+        "--maxmemory-policy",
+        "allkeys-lfu"
+      ]
 volumes:
   postgresql_data:
     driver: local
