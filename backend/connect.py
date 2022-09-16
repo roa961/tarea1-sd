@@ -4,11 +4,12 @@ from environs import Env
 
 def conexion():
     try :
+        env = Env()
         con = ps.connect(
-            dbname=Env('POSTGRES_DB'),
-            user=Env('POSTGRES_USER'),
-           assword=Env('POSTGRES_PASSWORD'),
-            host=Env('POSTGRES_HOST')
+            dbname="paginas",
+            user="postgres",
+            password="postgres",
+            host="172.20.1.2"
         )
         return con
     except:

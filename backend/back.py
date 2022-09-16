@@ -7,6 +7,7 @@ import psycopg2
 import connect
 import time as t
 
+
 class Search(proto_web_pb2_grpc.SearchServicer):
     def __init__(self, *args, **kwargs):
         pass
@@ -44,7 +45,10 @@ def serv():
 
 if __name__== "__main__":
     t.sleep(10)
-    con = connect.conexion()
-    cur = con.cursor()
+    try:
+        con = connect.conexion()
+        print("conectado")
+    except:
+        print("error")
     serv()
     print("conected")
