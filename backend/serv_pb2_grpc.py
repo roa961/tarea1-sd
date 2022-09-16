@@ -5,7 +5,7 @@ import grpc
 import serv_pb2 as serv__pb2
 
 
-class lanStub(object):
+class SearchStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class lanStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.getSearch = channel.unary_unary(
-                '/lan/getSearch',
-                request_serializer=serv__pb2.Search.SerializeToString,
-                response_deserializer=serv__pb2.lanResponse.FromString,
+        self.GetServerResponse = channel.unary_unary(
+                '/search.Search/GetServerResponse',
+                request_serializer=serv__pb2.Message.SerializeToString,
+                response_deserializer=serv__pb2.SearchResults.FromString,
                 )
 
 
-class lanServicer(object):
+class SearchServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def getSearch(self, request, context):
+    def GetServerResponse(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_lanServicer_to_server(servicer, server):
+def add_SearchServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'getSearch': grpc.unary_unary_rpc_method_handler(
-                    servicer.getSearch,
-                    request_deserializer=serv__pb2.Search.FromString,
-                    response_serializer=serv__pb2.lanResponse.SerializeToString,
+            'GetServerResponse': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServerResponse,
+                    request_deserializer=serv__pb2.Message.FromString,
+                    response_serializer=serv__pb2.SearchResults.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'lan', rpc_method_handlers)
+            'search.Search', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class lan(object):
+class Search(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def getSearch(request,
+    def GetServerResponse(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class lan(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/lan/getSearch',
-            serv__pb2.Search.SerializeToString,
-            serv__pb2.lanResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/search.Search/GetServerResponse',
+            serv__pb2.Message.SerializeToString,
+            serv__pb2.SearchResults.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

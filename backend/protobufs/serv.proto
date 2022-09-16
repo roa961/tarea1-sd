@@ -1,29 +1,22 @@
 syntax = "proto3";
 
+package search;
 
-message Search{
-    string query = 1;
-    int32 page_number = 2;
-    int32 page_per_num = 3;
-
+service Search{
+ rpc GetServerResponse(Message) returns (SearchResults) {}
 }
 
-
-message Rearch{
-    string url = 1;
-    string name = 2;
-    string description = 3;
-    repeated string snippets=4;
-    
-
-}
-message lanResponse{
-    repeated Rearch results=1;
-
+message Message{
+ string message = 1;
 }
 
-service lan{
-    rpc getSearch(Search) returns(lanResponse); 
+message SearchResults{
+  repeated Web web = 1;
+}
 
-
+message Web{
+ int32 id = 1;
+ string title = 2;
+ string description = 3;
+ string url = 4;
 }

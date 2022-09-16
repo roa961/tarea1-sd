@@ -20,7 +20,7 @@ class Cliente(object):
         print(f'{message}')
         return self.stub.GetServerResponse(message)
 
-@app.route('/search', methods = ['GET'])
+#@app.route('/search', methods = ['GET'])
 
 def busqueda(self):
     cliente = Cliente()
@@ -33,3 +33,8 @@ def busqueda(self):
         print(r_main.get(search))
         
 
+if __name__ == "__main__":
+    cliente=Cliente()
+    busqueda= input("Inserte busqueda\n")
+    url = cliente.get_url(message=busqueda)
+    print(f'{url}')

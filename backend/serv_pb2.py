@@ -14,34 +14,44 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nserv.proto\"\x15\n\x06Search\x12\x0b\n\x03\x61\x63k\x18\x01 \x01(\t\"\x1a\n\x0blanResponse\x12\x0b\n\x03\x61\x63k\x18\x01 \x01(\t2)\n\x03lan\x12\"\n\tgetSearch\x12\x07.Search\x1a\x0c.lanResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nserv.proto\x12\x06search\"\x1a\n\x07Message\x12\x0f\n\x07message\x18\x01 \x01(\t\")\n\rSearchResults\x12\x18\n\x03web\x18\x01 \x03(\x0b\x32\x0b.search.Web\"B\n\x03Web\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0b\n\x03url\x18\x04 \x01(\t2G\n\x06Search\x12=\n\x11GetServerResponse\x12\x0f.search.Message\x1a\x15.search.SearchResults\"\x00\x62\x06proto3')
 
 
 
-_SEARCH = DESCRIPTOR.message_types_by_name['Search']
-_LANRESPONSE = DESCRIPTOR.message_types_by_name['lanResponse']
-Search = _reflection.GeneratedProtocolMessageType('Search', (_message.Message,), {
-  'DESCRIPTOR' : _SEARCH,
+_MESSAGE = DESCRIPTOR.message_types_by_name['Message']
+_SEARCHRESULTS = DESCRIPTOR.message_types_by_name['SearchResults']
+_WEB = DESCRIPTOR.message_types_by_name['Web']
+Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), {
+  'DESCRIPTOR' : _MESSAGE,
   '__module__' : 'serv_pb2'
-  # @@protoc_insertion_point(class_scope:Search)
+  # @@protoc_insertion_point(class_scope:search.Message)
   })
-_sym_db.RegisterMessage(Search)
+_sym_db.RegisterMessage(Message)
 
-lanResponse = _reflection.GeneratedProtocolMessageType('lanResponse', (_message.Message,), {
-  'DESCRIPTOR' : _LANRESPONSE,
+SearchResults = _reflection.GeneratedProtocolMessageType('SearchResults', (_message.Message,), {
+  'DESCRIPTOR' : _SEARCHRESULTS,
   '__module__' : 'serv_pb2'
-  # @@protoc_insertion_point(class_scope:lanResponse)
+  # @@protoc_insertion_point(class_scope:search.SearchResults)
   })
-_sym_db.RegisterMessage(lanResponse)
+_sym_db.RegisterMessage(SearchResults)
 
-_LAN = DESCRIPTOR.services_by_name['lan']
+Web = _reflection.GeneratedProtocolMessageType('Web', (_message.Message,), {
+  'DESCRIPTOR' : _WEB,
+  '__module__' : 'serv_pb2'
+  # @@protoc_insertion_point(class_scope:search.Web)
+  })
+_sym_db.RegisterMessage(Web)
+
+_SEARCH = DESCRIPTOR.services_by_name['Search']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _SEARCH._serialized_start=14
-  _SEARCH._serialized_end=35
-  _LANRESPONSE._serialized_start=37
-  _LANRESPONSE._serialized_end=63
-  _LAN._serialized_start=65
-  _LAN._serialized_end=106
+  _MESSAGE._serialized_start=22
+  _MESSAGE._serialized_end=48
+  _SEARCHRESULTS._serialized_start=50
+  _SEARCHRESULTS._serialized_end=91
+  _WEB._serialized_start=93
+  _WEB._serialized_end=159
+  _SEARCH._serialized_start=161
+  _SEARCH._serialized_end=232
 # @@protoc_insertion_point(module_scope)

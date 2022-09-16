@@ -7,7 +7,7 @@ import psycopg2
 import connect
 import time as t
 
-class Search(serv_pb2_grpc.lan):
+class Search(serv_pb2_grpc.Search):
     def __init__(self, *args, **kwargs):
         pass
     def getResponce(self, request, context):
@@ -29,14 +29,14 @@ class Search(serv_pb2_grpc.lan):
             result['sn'] = i[4]
             response.append(result)
 
-        print(serv_pb2.lanResponse(search=response))
-        return(serv_pb2.lanResponse(search=response))
+        print(serv_pb2.SearchResults(search=response))
+        return(serv_pb2.SearchResults(search=response))
 
 
 def serv():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 
-    serv_pb2_grpc.add_lanServicer_to_server(serv_pb2_grpc.lan(),server)
+    serv_pb2_grpc.add_SearchServicer_to_server(serv_pb2_grpc.Search,server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
@@ -47,3 +47,4 @@ if __name__== "__main__":
     con = connect.conexion()
     cur = con.cursor()
     serv()
+    print("conected")

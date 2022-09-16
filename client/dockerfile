@@ -1,0 +1,15 @@
+FROM python:3.8.10
+
+WORKDIR /client
+
+COPY requirements.txt /backend
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+RUN python3 -m grpc_tools.protoc -I protobufs --python_out=. --grpc_python_out=. protobufs/serv.proto
+
+EXPOSE 3000
+
+CMD ["python3", "-u", "client.py"]
