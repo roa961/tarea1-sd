@@ -10,7 +10,7 @@ load_dotenv()
 db = os.getenv("POSTGRES_DB")
 us = os.getenv("POSTGRES_USER")
 passw = os.getenv("POSTGRES_PASSWORD") 
-ht = "172.18.0.2"
+ht = os.getenv("POSTGRES_HOST")
 
 conn = psycopg2.connect(
     database= db,
@@ -22,7 +22,6 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-cur.execute("Drop table webs;")
 cur.execute("create table webs(id int, title text, description text, keywords text, URL text); ")
 cur.execute("commit;")
 
