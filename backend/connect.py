@@ -13,4 +13,4 @@ def conexion():
         )
         return con
     except:
-        print("No pudo realizarse conexión con la db")
+        print("No pudo realizarse conexión con la datab")
