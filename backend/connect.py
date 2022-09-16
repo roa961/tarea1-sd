@@ -1,23 +1,15 @@
-import psycopg2 
-from environs import *
-from dotenv import load_dotenv
-import os
+import psycopg2 as ps
+from environs import Env
 
-con = None
-cur = None
 
 def conexion():
-
-    load_dotenv()
-    db = os.getenv("POSTGRES_DB")
-    us = os.getenv("POSTGRES_USER")
-    passw = os.getenv("POSTGRES_PASSWORD") 
-    ht = os.getenv("POSTGRES_HOST")
-
-    conn = psycopg2.connect(
-        database= db,
-        user = us,
-        password = passw,
-        host = ht
-    )
-    return conn
+    try :
+        con = ps.connect(
+            dbname=Env('POSTGRES_DB'),
+            user=Env('POSTGRES_USER'),
+           assword=Env('POSTGRES_PASSWORD'),
+            host=Env('POSTGRES_HOST')
+        )
+        return con
+    except:
+        print("No pudo realizarse conexión con la db")

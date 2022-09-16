@@ -1,17 +1,17 @@
 from re import search
 import grpc
 from concurrent import futures
-import serv_pb2_grpc
-import serv_pb2
+import proto_web_pb2
+import proto_web_pb2_grpc
 import psycopg2
 import connect
 import time as t
 
-class Search(serv_pb2_grpc.Search):
+class Search(proto_web_pb2_grpc.SearchServicer):
     def __init__(self, *args, **kwargs):
         pass
     def getResponce(self, request, context):
-        q= f"SELECT * FROM Items;"
+        q= f"SELECT * FROM webs;"
         item = []
         response=[]
         message = request.message
@@ -26,17 +26,17 @@ class Search(serv_pb2_grpc.Search):
             result['url'] = i[1]
             result['title'] = i[2]
             result['description'] = i[3]
-            result['sn'] = i[4]
+            #result['sn'] = i[4]
             response.append(result)
 
-        print(serv_pb2.SearchResults(search=response))
-        return(serv_pb2.SearchResults(search=response))
+        print(proto_web_pb2.Search(search=response))
+        return(proto_web_pb2.Search(search=response))
 
 
 def serv():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 
-    serv_pb2_grpc.add_SearchServicer_to_server(serv_pb2_grpc.Search,server)
+    proto_web_pb2_grpc.add_SearchServicer_to_server(Search(),server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
