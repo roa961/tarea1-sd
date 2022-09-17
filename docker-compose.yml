@@ -1,6 +1,22 @@
-version: '3.3'
+version: '3.8'
 
 services:
+  postgresql:
+    container_name: postgres
+    image: bitnami/postgresql:12.10.0
+    restart: always
+    # networks:
+    #   cont:
+    #     ipv4_address: 172.20.1.2
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - 'POSTGRESQL_USER=${POSTGRES_USER}'
+      - 'POSTGRESQL_DATABASE=${POSTGRES_DB}'
+      - 'ALLOW_EMPTY_PASSWORD=${HIDE_EMPTY_PASSWORD}'
+      - 'POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}'
   cliente:
     container_name: cliente
     build: ./client
@@ -26,31 +42,16 @@ services:
     #   cont:
     #     ipv4_address: 172.20.1.8
     ports:
-      - "50051"
-      - "5432"
+      - "50051:50051"
     environment:
       FLASK_ENV: development
+    tty: true
+    
     depends_on:
       - postgresql
       - redis-master
       - redis-replica
       - redis-replica2
-  postgresql:
-    container_name: postgres
-    restart: always
-    image: docker.io/bitnami/postgresql:14
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.2
-    ports:
-      - '5432'
-    volumes:
-      - 'postgresql_data:/bitnami/postgresql'
-    environment:
-      - 'POSTGRESQL_USER=${POSTGRES_USER}'
-      - 'POSTGRESQL_DATABASE=${POSTGRES_DB}'
-      - 'ALLOW_EMPTY_PASSWORD=${HIDE_EMPTY_PASSWORD}'
-      - 'POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}'
   redis-master:
     container_name: cachemain
     image: 'bitnami/redis:latest'
@@ -109,8 +110,7 @@ volumes:
   postgresql_data:
     driver: local
 networks:
-  tarea1:
-    external: true
+  default:
     driver: bridge
 #     ipam:
 #       config:

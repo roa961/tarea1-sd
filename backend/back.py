@@ -53,7 +53,7 @@ if __name__== "__main__":
         print(con)
         cur =con.cursor()
         print("conectado")
-        #serv()
+        serv()
     except:
-        print("no se pudo conectar")
+        print("No se pudo conectar")
     
