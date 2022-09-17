@@ -11,23 +11,24 @@ import time as t
 class Search(proto_web_pb2_grpc.SearchServicer):
     def __init__(self, *args, **kwargs):
         pass
-    def getResponce(self, request, context):
-        q= f"SELECT * FROM webs;"
+    def GetServerResponse(self, request, context):
+        query= "SELECT * FROM WEBS;"
         item = []
         response=[]
         message = request.message
         result = f"{message}"
-        cur.execute(q)
-        qres= cur.fetchall()
+        cur.execute(query)
+        qres = cur.fetchall()
         for i in qres:
             if item in i[1]:
                 item.append(i)
         for i in item:
             result = dict()
-            result['url'] = i[1]
+            result['id'] = i[1]
             result['title'] = i[2]
             result['description'] = i[3]
-            #result['sn'] = i[4]
+            result['url'] = i[4]
+            #
             response.append(result)
 
         print(proto_web_pb2.Search(search=response))
@@ -44,7 +45,7 @@ def serv():
     
 
 if __name__== "__main__":
-    t.sleep(10)
+    t.sleep(20)
     con = connect.conexion()
     print("conectado")
     cur = con.cursor()

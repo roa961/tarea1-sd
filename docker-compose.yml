@@ -1,6 +1,33 @@
 version: '2'
 
 services:
+  cliente:
+    container_name: cliente
+    build: ./client
+    restart: always
+    ports: 
+      - "9000"
+    environment:
+      FLASK_ENV: development
+    depends_on:
+      - postgresql
+      - redis-master
+      - redis-replica
+      - redis-replica2
+      - servidor
+  servidor:
+    container_name: servidor
+    build: ./backend
+    restart: always
+    ports:
+      - "50051"
+    environment:
+      FLASK_ENV: development
+    depends_on:
+      - postgresql
+      - redis-master
+      - redis-replica
+      - redis-replica2
   postgresql:
     container_name: postgres
     restart: always

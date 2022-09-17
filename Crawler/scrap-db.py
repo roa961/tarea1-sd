@@ -38,7 +38,6 @@ with open("paginas.txt", 'r') as file:
             if page.status_code != 200:
             	continue
             soup = BeautifulSoup(page.text, 'html.parser')
-            
             if soup.find("meta", {"name":"description"}):
                 body = soup.find("meta", {"name":"description"})["content"]
             else:

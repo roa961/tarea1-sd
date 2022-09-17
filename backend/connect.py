@@ -9,7 +9,8 @@ def conexion():
             dbname="paginas",
             user="postgres",
             password="postgres",
-            host="172.20.1.2"
+            host="172.20.1.2",
+            port=5432
         )
         return con
     except:

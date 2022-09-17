@@ -1,4 +1,4 @@
-FROM python:3.8.10
+FROM python:3.8.13
 
 WORKDIR /backend
 
@@ -8,7 +8,7 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-RUN python3 -m grpc_tools.protoc -I protobufs --python_out=. --grpc_python_out=. protobufs/serv.proto
+RUN python3 -m grpc_tools.protoc -I protofiles --python_out=. --grpc_python_out=. protofiles/proto_web.proto
 
 EXPOSE 3000
 
