@@ -1,3 +1,4 @@
+from operator import ifloordiv
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -5,6 +6,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 import limpieza 
+import ip
 
 load_dotenv()
 db = os.getenv("POSTGRES_DB")
@@ -19,15 +21,17 @@ conn = psycopg2.connect(
     host = ht
 )
 
-
 cur = conn.cursor()
 
-cur.execute("create table webs(id int, title text, description text, keywords text, URL text); ")
-cur.execute("commit;")
+if cur.execute("SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_catalog='paginas' AND table_schema='public' AND table_name='webs');") == "True":
+    pass
+else:
+    cur.execute("create table webs(id int, title text, description text, keywords text, URL text); ")
+    cur.execute("commit;")
 
 with open("paginas.txt", 'r') as file:
     rf = csv.reader(file, delimiter='\t')
-    limit = 100
+    limit = 5
     cont = 0
     next(rf)
     for fila in rf:
@@ -54,9 +58,8 @@ with open("paginas.txt", 'r') as file:
                 keywords = soup.find("meta", {"name":"keywords"})["content"]
             else:
                 continue
-            cur.execute("insert into webs(id, title, description, keywords, url ) values(%s,%s,%s,%s,%s)", (fila[0], title, body, keywords, fila[4]))
-            cur.execute("commit;")    
+            cur.execute("insert into webs(id, title, description, keywords, url ) values(%s,%s,%s,%s,%s)", (fila[0], title, body, keywords, fila[4]))  
             cont +=1
-
         except:
             continue
+    cur.execute("commit;")  
