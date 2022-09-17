@@ -6,7 +6,7 @@ import redis
 import grpc
 import time
 
-r_main = redis.Redis(host="172.20.1.3", port=6379, db=0) # Principal
+r_main = redis.Redis(host="redis-master", port=6379, db=0) # Principal
 
 app = Flask(__name__)
 
