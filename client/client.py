@@ -7,7 +7,7 @@ import grpc
 import time
 
 r_main = redis.Redis(host="redis-master", port=6379, db=0) # Principal
-
+r_main.flushall()
 app = Flask(__name__)
 
 class Cliente(object):
@@ -20,29 +20,29 @@ class Cliente(object):
     def get_url(self, message):
         message = pb2.Message(message = message)
         print(f'{message}')
-        return self.stub.GetServerResponse(message)
+        stub = self.stub.GetServerResponse(message)
+        return stub
 
 @app.route('/')
 def index(): 
     return render_template('index.html')
 
-@app.route('/busqueda', methods = ['GET'])
+@app.route('/search', methods = ['GET'])
 
 def busqueda():
     cliente = Cliente()
-    search = request.args['busqueda']
+    search = request.args['search']
     
     if r_main.get(search) == None:
         web = cliente.get_url(message=search)
+        if len(str(web)) == 84:
+            return render_template('index.html', busqueda = search ,datos = web, origen = "No hay datos de la búsqueda en Postgres")
         r_main.set(search,str(web))
         return render_template('index.html', datos = web, origen = "Datos provenientes de Postgres")
 
-    elif r_main.get(search):
-        print(r_main.get(search))
-        return render_template('index.html', datos = web, origen = "Datos provenientes de Redis")
-    else:
-        return render_template('index.html', datos = "No hay datos", origen = "No existen en Postgres ni Redis")
-        
+    elif r_main.get(search) != None:
+        data = r_main.get(search).decode("utf-8")
+        return render_template('index.html', datos = data, origen = "Datos provenientes de Redis")
 
 if __name__ == "__main__":
     time.sleep(20)

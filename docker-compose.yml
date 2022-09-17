@@ -5,11 +5,8 @@ services:
     container_name: postgres
     image: bitnami/postgresql:12.10.0
     restart: always
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.2
     ports:
-      - '5432:5432'
+      - '5432'
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
     environment:
@@ -23,9 +20,6 @@ services:
     restart: always
     ports: 
       - "9000"
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.10
     environment:
       FLASK_ENV: development
     depends_on:
@@ -38,9 +32,6 @@ services:
     container_name: servidor
     build: ./backend
     restart: always
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.8
     ports:
       - "50051:50051"
     environment:
@@ -55,9 +46,6 @@ services:
   redis-master:
     container_name: cachemain
     image: 'bitnami/redis:latest'
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.3
     restart: always
     ports:
       - "6379"
@@ -75,9 +63,6 @@ services:
   redis-replica:
     container_name: cachereplica
     image: 'bitnami/redis:latest'
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.4
     ports:
       - '6379'
     depends_on:
@@ -92,9 +77,6 @@ services:
   redis-replica2:
     container_name: cachereplica2
     image: 'bitnami/redis:latest'
-    # networks:
-    #   cont:
-    #     ipv4_address: 172.20.1.5
     ports:
       - '6379'
     depends_on:
@@ -112,6 +94,3 @@ volumes:
 networks:
   default:
     driver: bridge
-#     ipam:
-#       config:
-#         - subnet: 172.20.1.0/24

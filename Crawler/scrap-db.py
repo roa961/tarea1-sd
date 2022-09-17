@@ -5,8 +5,8 @@ import csv
 import psycopg2
 import os
 from dotenv import load_dotenv
-import limpieza 
-import ip
+import limpieza
+import ip 
 
 load_dotenv()
 db = os.getenv("POSTGRES_DB")
@@ -20,28 +20,31 @@ conn = psycopg2.connect(
     password = passw,
     host = ht
 )
-
 cur = conn.cursor()
-
-if cur.execute("SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_catalog='paginas' AND table_schema='public' AND table_name='webs');") == "True":
-    pass
+cur.execute("select * from information_schema.tables where table_name=%s", ('webs',))
+val = bool(cur.rowcount)
+if val:
+    print("Tabla ya existente")
 else:
     cur.execute("create table webs(id int, title text, description text, keywords text, URL text); ")
     cur.execute("commit;")
+    print("Tabla 'webs' creada")
 
 with open("paginas.txt", 'r') as file:
     rf = csv.reader(file, delimiter='\t')
-    limit = 5
+    limit = 50
     cont = 0
     next(rf)
     for fila in rf:
         if cont == limit:
             break
         try: 
-            page = requests.get(fila[4],timeout=3)
-            if page.status_code != 200:
-            	continue
-            soup = BeautifulSoup(page.text, 'html.parser')
+            page = requests.get(fila[4],timeout=1)
+            if page.status_code == 200:
+                soup = BeautifulSoup(page.text, 'html.parser')
+            else:
+                continue
+            
             if soup.find("meta", {"name":"description"}):
                 body = soup.find("meta", {"name":"description"})["content"]
             else:
@@ -60,6 +63,7 @@ with open("paginas.txt", 'r') as file:
                 continue
             cur.execute("insert into webs(id, title, description, keywords, url ) values(%s,%s,%s,%s,%s)", (fila[0], title, body, keywords, fila[4]))  
             cont +=1
+            print(cont)
         except:
             continue
     cur.execute("commit;")  
