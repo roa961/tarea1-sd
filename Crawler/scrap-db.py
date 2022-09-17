@@ -6,7 +6,10 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 import limpieza
-import ip 
+import ip
+import time as t
+
+t.sleep(20)
 
 load_dotenv()
 db = os.getenv("POSTGRES_DB")
