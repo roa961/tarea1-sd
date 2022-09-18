@@ -1,2 +1,4 @@
-# tarea1-sd
-Escribir readme
+# Tarea N°1 Sistemas Distribuidos - Implementación de Redis
+Integrantes:
+  - Nicolás Ríos
+  - Rómulo Otárola
