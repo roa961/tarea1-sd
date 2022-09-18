@@ -14,4 +14,5 @@ Dentro de la carpeta **Crawler** se debe ejecutar el siguiente comando:
 ```sh
 python3 scrap-db.py
 ```
-Este se encarga de descomprimir el archivo con el dataser a utilizar, limpiar el dataset, obtener la información del dataset limpiado y luego lo inserta en la base de datos.
+Este se encarga de descomprimir el archivo con el dataset a utilizar, limpiar el dataset, obtener la información del dataset limpiado y luego inserta en la base de datos.
+**El archivo debe ejecutarse posteriormente a inicializar los contenedores**
