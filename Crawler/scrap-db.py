@@ -9,7 +9,7 @@ import limpieza
 import ip
 import time as t
 
-t.sleep(20)
+t.sleep(15)
 
 load_dotenv()
 db = os.getenv("POSTGRES_DB")
@@ -35,7 +35,7 @@ else:
 
 with open("paginas.txt", 'r') as file:
     rf = csv.reader(file, delimiter='\t')
-    limit = 50
+    limit = 100
     cont = 0
     next(rf)
     for fila in rf:

@@ -1,5 +1,10 @@
 import csv
 from os import path
+from unzip import unziptxt
+from waiting import wait
+
+wait(lambda: unziptxt(), timeout_seconds = 30, waiting_for="Descomprimiendo..")
+
 
 if path.exists("paginas.txt"):
 	pass
