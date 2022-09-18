@@ -4,4 +4,4 @@ Integrantes:
   - Rómulo Otárola
 ## Iniciar contenedores
 Se debe ejecutar el archivo **docker-compose.yml** con el comando:
-``docker-compose up --build``
+```docker-compose up --build```
