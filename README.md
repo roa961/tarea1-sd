@@ -16,4 +16,4 @@ Dentro de la carpeta **Crawler** se debe ejecutar el siguiente comando:
 ```sh
 python3 scrap-db.py
 ```
-Este se encarga de insertar la información del dataset limpiado y luego lo inserta en la base de datos
+Este se encarga de obtener la información del dataset limpiado y luego lo inserta en la base de datos
