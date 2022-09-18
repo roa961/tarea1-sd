@@ -5,4 +5,4 @@ Integrantes:
 ## Iniciar contenedores
 Se debe ejecutar el archivo **docker-compose.yml** con el comando:
 ```sh
-docker-compose up --build```
+docker-compose up --build
